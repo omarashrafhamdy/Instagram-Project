@@ -1,0 +1,83 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ProfilePage";
+}
+@using Instagram.ViewModel
+
+<link href="~/Content/css.css" rel="stylesheet" />
+<header>
+
+    <div class="container">
+        <div class=@Convert.ToInt32(Session["Id"]) id="sessionId"></div>
+        <div class="profile">
+
+            <div class="profile-image">
+
+                <img src="~/images/profiles/@ViewBag.image" alt="plz info" width="100" height="100">
+
+            </div>
+
+            <div class="profile-user-settings">
+
+                <h1 class="profile-user-name">@ViewBag.username</h1>
+
+
+                <a href="/User/EditProfile">
+                    <button class="btn profile-edit-btn">Edit Profile</button>
+                </a>
+
+
+
+            </div>
+            <div class="profile-stats">
+
+                <ul>
+                    <li><span class="profile-stat-count">@ViewBag.postsnumber</span> posts</li>
+                    <li><span class="profile-stat-count">@ViewBag.followers_number</span><button data-toggle="modal" data-target="#requestModal" class="btn btn-primary">followers</button></li>
+                    <li><span class="profile-stat-count">@ViewBag.followings_number</span><button data-toggle="modal" data-target="#requestModal1" class="btn btn-primary">followings</button></li>
+                    <li><span class="profile-stat-count">@ViewBag.follower_request_number</span><button data-toggle="modal" data-target="#requestModal2" class="btn btn-primary">follow request</button></li>
+                </ul>
+                @Html.Partial("follow")
+                @Html.Partial("waiting_requests")
+
+            </div>
+
+        </div>
+        <!-- End of profile section -->
+
+    </div>
+    <!-- End of container -->
+
+</header>
+
+<main>
+
+    <div class="container">
+
+        <div class="gallery">
+            @foreach (var post_info in ViewBag.info_posttt)
+            {
+                @Html.Partial("~/Views/Shared/profileposts.cshtml", (Post_Info)post_info)
+            }
+        </div>
+        <!-- End of gallery -->
+
+
+    </div>
+    <!-- End of container -->
+
+</main>
+            
+
+<script>
+    $(".gotoProfile").click(function () {
+        var session = document.getElementById("sessionId").className
+        if (session == this.name) {
+            window.location.href = `/User/ProfilePage/`;
+        }
+        //you just need to change the URL to the URL you made hanof
+        else {
+            window.location.href = `/User/Externalprofile/?id=${this.name}`;
+        }
+    });
+</script>

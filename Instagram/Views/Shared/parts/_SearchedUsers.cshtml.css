@@ -1,0 +1,12 @@
+.FoundedUsersBySearch{
+    text-decoration: none;
+    font-family: system-ui;
+    color:#191919;
+}
+
+.FoundedUsersBySearch :hover{
+    text-decoration: none;
+    font-family: system-ui;
+    color:#454545;
+}
+

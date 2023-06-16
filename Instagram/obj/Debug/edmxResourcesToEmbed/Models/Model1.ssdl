@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommentMaker" Type="int" />
+    <Property Name="PostID" Type="int" />
+    <Property Name="Text" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="FollowUser">
+    <Key>
+      <PropertyRef Name="UserSender" />
+      <PropertyRef Name="UserReciver" />
+    </Key>
+    <Property Name="UserSender" Type="int" Nullable="false" />
+    <Property Name="UserReciver" Type="int" Nullable="false" />
+    <Property Name="state" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostID" />
+    </Key>
+    <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Captian" Type="varchar(max)" />
+    <Property Name="Image" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="PostLike">
+    <Key>
+      <PropertyRef Name="PostID" />
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="LikeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PostID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mobile" Type="varchar(max)" />
+    <Property Name="Name" Type="varchar" MaxLength="25" />
+    <Property Name="UserName" Type="varchar" MaxLength="25" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProfilePicture" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK__Comment__Comment__36B12243">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="CommentMaker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__PostID__37A5467C">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FollowUse__UserR__2D27B809">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="FollowUser" Type="Self.FollowUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FollowUser">
+        <PropertyRef Name="UserReciver" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FollowUse__UserS__2C3393D0">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FollowUser" Type="Self.FollowUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FollowUser">
+        <PropertyRef Name="UserSender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Post__UserID__25869641">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Post" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PostLike__PostID__49C3F6B7">
+    <End Role="Post" Type="Self.Post" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PostLike" Type="Self.PostLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="PostID" />
+      </Principal>
+      <Dependent Role="PostLike">
+        <PropertyRef Name="PostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PostLike__UserID__4AB81AF0">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="PostLike" Type="Self.PostLike" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PostLike">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FollowUser" EntityType="Self.FollowUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PostLike" EntityType="Self.PostLike" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Comment__Comment__36B12243" Association="Self.FK__Comment__Comment__36B12243">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__PostID__37A5467C" Association="Self.FK__Comment__PostID__37A5467C">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FollowUse__UserR__2D27B809" Association="Self.FK__FollowUse__UserR__2D27B809">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="FollowUser" EntitySet="FollowUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FollowUse__UserS__2C3393D0" Association="Self.FK__FollowUse__UserS__2C3393D0">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="FollowUser" EntitySet="FollowUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Post__UserID__25869641" Association="Self.FK__Post__UserID__25869641">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Post" EntitySet="Post" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PostLike__PostID__49C3F6B7" Association="Self.FK__PostLike__PostID__49C3F6B7">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="PostLike" EntitySet="PostLike" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PostLike__UserID__4AB81AF0" Association="Self.FK__PostLike__UserID__4AB81AF0">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="PostLike" EntitySet="PostLike" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,42 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+
+.insta_logo{
+    font-family: 'Grand Hotel',cursive;
+}
+
+.re_log_border {
+    border: solid !important;
+    border-color: rgba(192,192,192,0.6) !important;
+    border-width: 1px !important;
+    border-radius: 3px;
+}
+
+.btn_back-color {
+    background-color: #008ecc !important;
+}
+
+
+.text_1 {
+    color: #8e8e8e !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    line-height: 20px !important;
+    text-align:left !important;
+}
+
+.text_2 {
+    color: #8e8e8e !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    margin: 10px 40px !important;
+}
+.edit_change_border {
+    border: solid !important;
+    border-color: rgba(192,192,192,0.6) !important;
+    border-width: 1px !important;
+}
+.edit_change_border {
+    border: solid !important;
+    border-color: rgba(192,192,192,0.6) !important;
+    border-width: 1px !important;
+}

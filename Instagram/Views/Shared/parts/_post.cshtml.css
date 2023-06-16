@@ -1,0 +1,13 @@
+.buttIcon {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+}
+.userName{
+    color:#191919;
+    font-family: system-ui;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+

@@ -1,0 +1,80 @@
+@model Instagram.ViewModel.Post_Info
+
+
+<div class="container my-2">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class=@Convert.ToInt32(Session["Id"]) id="sessionId"></div>
+                @*Start of Post upper part*@
+                <div class="card-body d-flex flex-row ">
+                    <a href="#" class="userName gotoProfile" name=@Model.UserID>
+                        <img class="img-fluid  rounded-circle" src="~/images/profiles/@Model.ProfileImage" style="height: 40px; width: 40px; ">
+                        <span id="posterName" name="UserName" class="m-2">@Model.Name</span>
+                    </a>
+                </div>
+                @*End of Post upper part*@
+                @*Start of Post Middle part (Image)*@
+                <img class="card-img-bottom" src="~/images/profiles/@Model.PostImage" style="width: 100%; height: 500px; object-fit: cover;">
+                @*End of Post Middle part (Image)*@
+                @*Start of Post Last part*@
+                @*Like and comment icons*@
+                <div class="col-md-12 postLower my-2 mx-1">
+                    <div class="row my-1">
+                        @using (Html.BeginForm("LikeSystem", "User", FormMethod.Post))
+                        {
+                            <input type="hidden" name="postID" value="@Model.PostID" />
+                            if (@Model.IfLike != 0)
+                            {
+                                <button class="fa fa-home icons fa-fw pull-left fa-heart-o fa-lg buttIcon" style="color:red"></button>
+
+
+                            }
+                            if (@Model.IfLike == 0)
+                            {
+                                <button class="fa fa-home icons fa-fw pull-left fa-heart-o fa-lg buttIcon"></button>
+                            }
+                        }
+
+                        <button class="fa fa-fw icons pull-left fa-lg fa-commenting-o buttIcon" data-toggle="modal" data-target="#@("post" + Model.PostID)"></button>
+                    </div>
+                    @Html.Partial("~/Views/Shared/parts/_commentsModalHome.cshtml")
+                    @*Likes counter*@
+                    <div class="d-flex flex-row mx-1">
+                        <a href="#" class="font-weight-bold userName" data-toggle="modal" data-target="#@("likepost" + Model.PostID)">
+                            <span id="nOfLikes" class=" font-weight-bold">@Model.PostLikes</span>
+                            Liked
+                        </a>
+                    </div>
+                    @Html.Partial("~/Views/Shared/parts/_likesModal.cshtml")
+                    @*User name and post bio*@
+                    <div class="m-1">
+                        <a href="#" class="userName gotoProfile" name=@Model.UserID> <span id="posterName" name="userName">@Model.Name</span> </a>
+                        <span name="userPostText"> @Model.Caption </span>
+                    </div>
+                    @*
+        you can UnComment that if you want to add comments on the post with an If condtion
+        <div class="m-1">
+        <a href="#" class="userName"> <span id="posterName" name="userName">@ViewData["UserName"]</span> </a>
+        <span name="userPostText"> @ViewData["PostText"] </span>
+         </div>
+                    *@
+                    @*Add comment part*@
+                    <div class="">
+                        @using (Html.BeginForm("addComment", "User", FormMethod.Post))
+                        {
+                            <input type="hidden" name="postID" value="@Model.PostID" />
+                            <div class="input-group col-12 mx-0 ">
+                                <input type="text" class="form-control " name="theComment" id="addComment" placeholder="Add Comment">
+                                <div class="input-group-append"> <button class="btn" type="submit">Post</button> </div>
+                            </div>
+                        }
+                    </div>
+                    @*Start of Post Last part*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

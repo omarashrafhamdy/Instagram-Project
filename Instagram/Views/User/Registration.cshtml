@@ -1,0 +1,79 @@
+﻿@model Instagram.Models.UserInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Register</title>
+    <meta charset="utf-8">
+    <script src="~/Scripts/show-password.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/loginregister.css" rel="stylesheet" />
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/768px-Instagram_logo_2016.svg.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="">
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                @*start card1*@
+                <div class="col-md-5 col-10 bg-white p-5 re_log_border mx-auto">
+                    @*instagram logo*@
+                    <h1 class="display-4 text-center text-capitalize mb-3 insta_logo">instagram</h1>
+                    @*text1*@
+                    <p class="lead text_1 text-center">Sign up to see photos and videos from your friends.</p>
+                    @*start form*@
+                    @using (Html.BeginForm(actionName: "Registration", controllerName: "User", method: FormMethod.Post))
+                    {
+
+                        <div class="form-group">
+                            @*Email here*@
+                            @Html.TextBoxFor(u => u.UserName, new { @class = "form-control", @id = "form7", @placeholder = "Email", @required = "required", @type = "email" })
+                        </div>
+                        <div class="form-group">
+                            @*first name here*@
+                            @Html.TextBoxFor(u => u.Name, new { @class = "form-control", @id = "form9", @placeholder = "First name", @required = "required" })
+                        </div>
+
+                        <div class="form-group">
+                            @*phone number here*@
+                            @Html.TextBoxFor(u => u.Mobile, new { @class = "form-control", @id = "form11", @placeholder = "Phone Number EX:{01********}", @required = "required", @pattern = "[0-9]{11}" })
+                        </div>
+                        <div class="form-group mb-3">
+                            @*password here*@
+                            @Html.PasswordFor(u => u.Password, new { @class = "form-control", @id = "form10", @placeholder = "Password", @required = "required" })
+                            <input type="checkbox" onclick="showpass()">Show Password
+                        </div>
+                        <p>@ViewBag.Message</p>
+                        <p>@ViewBag.ErrorMessage</p>
+                        <button type="submit" class="btn btn-block text-light btn_back-color">Register</button>
+                    }
+                    @*end form*@
+
+                    @*text2*@
+                    <h5 class="text-muted mx-auto mt-2 text_2 text-center">By signing up, you agree to our Terms , Data Policy and Cookies Policy .</h5>
+                </div>
+                @*end of card1*@
+            </div>
+            <div class="row">
+                @*start card2*@
+                <div class="col-md-5 mx-auto mt-3 re_log_border text-center">
+                    <p class="d-inline-flex my-0">Have an account?</p>
+                    <a class="btn btn-link mb-1" href="/User/Login">Log in</a>
+                </div>
+               
+                @*end card2*@
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿@model Instagram.ViewModel.Post_Info
+
+<div class="modal fade" id="@("post" + Model.PostID)">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            @*
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>*@
+
+            <!-- Modal body -->
+            <div class="modal-body" style="display:flex">
+                @*image*@
+                <div>
+                    <img class="card-img-bottom" src="~/images/profiles/@Model.PostImage" style="width: 600px; height: 600px; object-fit: cover;">
+                </div>
+                @*image properties*@
+                <div style="width:100%">
+                    @*miniprofile*@
+                    <div style="display:flex">
+
+                        <div class="card-body d-flex flex-row ">
+                            <a href="#" class="userName gotoProfile" name=@Model.UserID>
+                                <img class="img-fluid  rounded-circle" src="~/images/profiles/@Model.ProfileImage" style="height: 40px; width: 40px; ">
+                                <span id="posterName" name="UserName" class="m-2">@Model.Name</span>
+                            </a>
+                        </div>
+                    </div>
+                    @*posttext*@
+                    <div class="m-1" style="padding-left:17px; padding-right:10px">
+                        <a href="#" class="userName gotoProfile" name=@Model.UserID> <span id="posterName" name="userName">@Model.Name</span> </a>
+                        <span name="userPostText" style="color:black!important">@Model.Caption </span>
+                        <hr />
+
+                    </div>
+                    @*comments*@
+                    <div style="overflow-y:scroll; height:380px;overflow-x:hidden">
+                        @foreach (var item in Model.CommentData)
+                        {
+
+                            <div class="card-body  row">
+                                <div class="col-11">
+                                    <a href="#" class="userName gotoProfile" name=@item.CommentUserID>
+                                        <img class="img-fluid  rounded-circle" src="~/images/profiles/@item.CommentMakerImage" style="height: 40px; width: 40px; ">
+                                        <span id="posterName" name="UserName" class="my-2" style="font-weight:bold">@item.CommentMaker</span>
+                                    </a>
+                                    <span name="userPostText" style="color:black!important"> @item.CommentText </span>
+                                </div>
+                            </div>
+                            <hr class="mx-3" />
+
+                        }
+                    </div>
+                    @*add like and like counter*@
+                    <div class="" style="padding-left:10px; margin-top:10px">
+                        @using (Html.BeginForm("LikeSystem", "User", FormMethod.Post))
+                        {
+                            <input type="hidden" name="postID" value="@Model.PostID" />
+                            if (@Model.IfLike != 0)
+                            {
+                                <button class="fa fa-home icons fa-fw pull-left fa-heart-o fa-lg buttIcon" style="color:red"></button>
+
+
+                            }
+                            if (@Model.IfLike == 0)
+                            {
+                                <button class="fa fa-home icons fa-fw pull-left fa-heart-o fa-lg buttIcon"></button>
+                            }
+                        }
+                        <div class="d-flex flex-row mx-1">
+                            <a href="#" class="font-weight-bold userName" data-toggle="modal" data-target="#@("likepost" + Model.PostID)">
+                                <span id="nOfLikes" class=" font-weight-bold">@Model.PostLikes</span>
+                                Liked
+                            </a>
+                        </div>
+                        
+                    </div>
+
+                        @*Add comment part*@
+
+
+                        <div class="" style="position:absolute;bottom: 0;width: 45%; padding-bottom:17px">
+                            @using (Html.BeginForm("addComment", "User", FormMethod.Post))
+                            {
+                                <div class="input-group col-12 mx-0 ">
+                                    <input type="hidden" name="postID" value="@Model.PostID" />
+                                    <input type="text" class="form-control " name="theComment" placeholder="Add Comment">
+                                    <div class="input-group-append"> <button class="btn" type="submit" style="color:black!important">Post</button> </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

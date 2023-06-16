@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "SearchPage";
+}
+@using Instagram.ViewModel;
+
+@foreach (var UsersFounded in ViewBag.FoundedUserss)
+{
+    @Html.Partial("~/Views/Shared/parts/_SearchedUsers.cshtml", (UserInfoSearch)UsersFounded)
+
+}
+
+<script>
+    $(".SearchIcon").click(function () {
+        var session = document.getElementById("sessionId").className
+        if (session == this.name) {
+            window.location.href = `/User/ProfilePage/`;
+        }
+        else {
+            window.location.href = `/User/Externalprofile/?id=${this.name}`;
+        }
+    });
+</script>

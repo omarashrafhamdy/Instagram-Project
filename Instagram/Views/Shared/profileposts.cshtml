@@ -1,0 +1,6 @@
+﻿<div class="gallery-item" tabindex="0">
+
+    <img src="~/images/profiles/@Model.PostImage" class="gallery-image" width="100px" height="100px" alt="" data-toggle="modal" data-target="#@("post" + Model.PostID)">
+    @Html.Partial("~/Views/Shared/parts/_commentModalProfile.cshtml")
+
+</div>

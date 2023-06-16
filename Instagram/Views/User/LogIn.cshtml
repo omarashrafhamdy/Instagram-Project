@@ -1,0 +1,69 @@
+﻿@model Instagram.Models.UserInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <script src="~/Scripts/show-password.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/loginregister.css" rel="stylesheet" />
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/768px-Instagram_logo_2016.svg.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body class="">
+    <div class="py-5  ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @*start card1*@
+                    <div class="mx-auto col-md-5 col-10 bg-white p-5 re_log_border">
+                        @*Instagram Logo*@
+                        <h1 class="display-4 text-center text-capitalize mb-5 insta_logo">instagram</h1>
+                        @*start form*@
+                        @using (Html.BeginForm(actionName: "LogIn", controllerName: "User", method: FormMethod.Post))
+                        {
+                            @*Email here*@
+                            <div class="form-group">
+                                @Html.TextBoxFor(u => u.UserName, new { @class = "form-control re_log_border", @placeholder = "Email, or username", @type = "email", @id = "form9", @required = "required" })
+                            </div>
+                            @*password here*@
+                            <div class="form-group mb-3 ">
+                                @Html.PasswordFor(u => u.Password, new { @class = "form-control re_log_border", @placeholder = "Password", @id = "form10", @required = "required" })
+                                <input type="checkbox" onclick="showpass()">Show Password
+                            </div>
+                            <button type="submit" class="btn btn-block text-light btn_back-color">Log in</button>
+                        }
+                        @*end form*@
+
+                        @*error msg*@
+
+                        <p id="invalid data" class="text-danger text-center text-capitalize">@Html.ValidationMessage("login")</p>
+                    </div>
+                    @*end card1*@
+                </div>
+            </div>
+            @*start card2*@
+            <div class="row m-0 my-3">
+                <div class="col-md-5 mx-auto re_log_border text-center">
+                    <p class="d-inline-flex my-0 ">Don't have an account?</p>
+                    <a class="btn btn-link d-inline-flex mb-1 " href="/User/Registration">Register</a>
+                </div>
+            </div>
+            @*end card2*@
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

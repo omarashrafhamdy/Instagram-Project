@@ -1,0 +1,36 @@
+@model Instagram.ViewModel.UserInfoSearch
+
+<div class=@Convert.ToInt32(Session["Id"]) id="sessionId"></div>
+<a href="#" class="row col-8 my-2 FoundedUsersBySearch SearchIcon userName" name=@Model.ID>
+    <div class=" col-2 mx-1 profile-image">
+        <img class="rounded-circle" src="~/images/profiles/@Model.ProfileImage" width="70px" height="70px">
+    </div>
+
+    <div class=" my-auto col-6">
+        <p class="d-block my-0 cala">@Model.Name</p>
+        <p class="d-block small my-0">@Model.UserName</p>
+    </div>
+    
+</a>
+
+<div class=" my-auto col-2">
+    @using (Html.BeginForm("SearchPage", "User", null, FormMethod.Post))
+    {
+        <input type="hidden" name="id" value="@Model.ID" />
+        if (Model.FollowState == null && Model.ID != ViewBag.sessionId)
+        {
+            <button type="submit" class="btn text-light btn_back-color btn btn-primary">Follow</button>
+        }
+        if (Model.FollowState == "following")
+        {
+            <button  class="btn text-light btn_back-color btn btn-success" disabled>Following</button>
+        }
+        if (Model.FollowState == "wait")
+        {
+            <button  class="btn text-light btn_back-color btn btn-secondary" disabled>Requested</button>
+        }
+        
+
+    }
+</div>
+

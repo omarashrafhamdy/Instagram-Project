@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "HomePage";
+    ViewData["UserName"] = ViewBag.capName;
+    ViewData["PostText"] = ViewBag.caption;
+}
+@using Instagram.ViewModel
+
+<div class="col-8 mx-auto " style="word-wrap: break-word">
+    @foreach (var post_info in ViewBag.info_postt)
+    {
+
+        @* this is posts place*@
+        @Html.Partial("~/Views/Shared/parts/_post.cshtml", (Post_Info)post_info)
+
+    }
+</div>
+<div class="col-4 mx-auto" style="word-wrap: break-word">
+    <h3 class="display-4">other side like the orignal design </h3>
+</div>
+
+
+
+<script>
+    $(".gotoProfile").click(function () {
+        var session = document.getElementById("sessionId").className
+        if (session == this.name) {
+            window.location.href = `/User/ProfilePage/`;
+        }
+        else {
+            window.location.href = `/User/Externalprofile/?id=${this.name}`;
+        }
+    });
+</script>
